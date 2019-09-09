@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: itoken-service-redis
+  boot:
+    admin:
+      client:
+        url: http://10.211.55.15:8084
+  zipkin:
+    base-url: http://10.211.55.15:9411
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    sentinel:
+      master: mymaster
+      nodes: 10.211.55.15:26379, 10.211.55.15:26380, 10.211.55.15:26381
+
+server:
+  port: 8502
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.211.55.15:8761/eureka/,http://10.211.55.15:8861/eureka/,http://10.211.55.15:8961/eureka/
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info

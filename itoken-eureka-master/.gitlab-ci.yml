@@ -1,0 +1,27 @@
+stages:
+  - build
+  - push
+  - run
+  - clean
+build:
+  stage: build
+  script:
+    - /usr/local/maven/apache-maven-3.5.3/bin/mvn clean package
+    - cp target/itoken-eureka-1.0.0-SNAPSHOT.jar docker/
+    - cd docker
+    - docker build -t 10.211.55.8:5000/itoken-eureka .
+push:
+  stage: push
+  script:
+    - docker push 10.211.55.8:5000/itoken-eureka
+run:
+  stage: run
+  script:
+    - cd docker
+    - docker-compose down
+    - docker-compose up -d
+clean:
+  stage: clean
+  script:
+#删除所有虚悬镜像
+    - docker rmi $(docker images -q -f dangling=true)

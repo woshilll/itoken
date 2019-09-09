@@ -1,0 +1,68 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>iToken | 文章编辑</title>
+    <th:block th:include="includes/head :: head"></th:block>
+    <link rel="stylesheet" href="http://10.211.55.8:81/adminlte/v2.4.3/bower_components/plugins/dropzone/dropzone.css"/>
+    <link rel="stylesheet"
+          href="http://10.211.55.8:81/adminlte/v2.4.3/bower_components/plugins/dropzone/min/basic.min.css"/>
+    <link rel="stylesheet"
+          href="http://10.211.55.8:81/adminlte/v2.4.3/bower_components/plugins/wangEditor/wangEditor.min.css"/>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<section class="content-header">
+    <h1>
+        文章管理
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
+        <li class="active">文章管理</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <form id="inputForm" class="form-horizontal" action="/save" method="post" th:object="${tbPostsPost}">
+        <input type="hidden" name="userCode" th:value="*{postGuid}">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">标题</label>
+                <div class="col-sm-10">
+                    <input id="title" th:name="title" class="form-control" placeholder="标题"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">封面缩略图片</label>
+
+                <div class="col-sm-10">
+                    <input id="thumbImage" name="thumbImage" class="form-control" placeholder="封面缩略图片"/>
+                    <div id="dropz" class="dropzone"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>
+            <button type="submit" class="btn btn-info pull-right">提交</button>
+        </div>
+        <!-- /.box-footer -->
+    </form>
+</section>
+<th:block th:include="includes/body :: body"></th:block>
+<script src="http://10.211.55.8:81/adminlte/v2.4.3/bower_components/plugins/dropzone/min/dropzone.min.js"></script>
+<script src="http://10.211.55.8:81/adminlte/v2.4.3/bower_components/plugins/wangEditor/wangEditor.min.js"></script>
+<script>
+    App.initDropZoneUpload({
+        id: "#dropz",
+        url: "http://localhost:8506/upload",
+        init: function () {
+            this.on("success", function (file, data) {
+                $("#thumbImage").val(data.fileName);
+            });
+        }
+    });
+</script>
+</body>
+</html>

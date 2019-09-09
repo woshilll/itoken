@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: itoken-zipkin
+  boot:
+    admin:
+      client:
+        url: http://10.211.55.15:8084
+  zipkin:
+    base-url: http://10.211.55.15:9411
+
+server:
+  port: 9411
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.211.55.15:8761/eureka/,http://10.211.55.15:8861/eureka/,http://10.211.55.15:8961/eureka/
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  metrics:
+    web:
+      server:
+        auto-time-requests: false

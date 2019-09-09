@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  itoken-eureka-1:
+    restart: always
+    image: 10.211.55.8:5000/itoken-eureka
+    container_name: itoken-eureka-1
+    ports:
+      - 8761:8761
+    networks:
+      - eureka-1-network
+  itoken-eureka-2:
+    restart: always
+    image: 10.211.55.8:5000/itoken-eureka
+    container_name: itoken-eureka-2
+    ports:
+      - 8861:8761
+    networks:
+      - eureka-2-network
+  itoken-eureka-3:
+    restart: always
+    image: 10.211.55.8:5000/itoken-eureka
+    container_name: itoken-eureka-3
+    ports:
+      - 8961:8761
+    networks:
+      - eureka-3-network
+networks:
+  eureka-1-network:
+  eureka-2-network:
+  eureka-3-network:
